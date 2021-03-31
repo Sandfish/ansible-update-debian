@@ -1,4 +1,6 @@
 ---
+# Task taken from https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+#
 - hosts: all
   tasks:
   - name: Update all packages to their latest version
