@@ -11,3 +11,16 @@
       name: "*"
       state: latest
       update_cache: yes
+      cache_valid_time: 3600
+  
+  - name: Check if reboot is required
+    stat:
+      path: /var/run/reboot-required
+    register: reboot_required
+
+  - name: Reboot system if required
+    reboot:
+      msg: Rebooting to complete system upgrade
+      reboot_timeout: 120
+    when: reboot_required.stat.exists
+
