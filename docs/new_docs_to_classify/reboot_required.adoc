@@ -1,0 +1,5 @@
+= Reboot_required ansible task
+
+https://janikvonrotz.ch/2020/06/05/pin-and-update-ubuntu-packages-with-ansible/
+
+
