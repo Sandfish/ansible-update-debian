@@ -1,0 +1,39 @@
+= Package maintenance with Ansible
+
+== Updating packages
+
+[source,yml]
+----
+- name: Update all packages to their latest version
+apt:
+    autoclean: yes
+    autoremove: yes
+    name: "*"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
+----
+
+== Holding software packages
+
+https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dpkg_selections_module.html
+
+== Test for packages that are kept back
+
+ansible -i inventories/prod/hosts.ini all -b -u ansible -a "apt-mark showhold"
+
+== Reboot required checks
+
+[source,yml]
+----
+- name: Check if reboot is required
+stat:
+    path: /var/run/reboot-required
+register: reboot_required
+
+- name: Reboot system if required
+reboot:
+    msg: Rebooting to complete system upgrade
+    reboot_timeout: 120
+when: reboot_required.stat.exists
+----
