@@ -24,6 +24,8 @@ ansible -i inventories/prod/hosts.ini all -b -u ansible -a "apt-mark showhold"
 
 == Reboot required checks
 
+When a Debian server received updates which need a reboot of a system, a specific file will be created that will signal to the sysadmin
+
 [source,yml]
 ----
 - name: Check if reboot is required
