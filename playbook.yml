@@ -4,6 +4,19 @@
 - hosts: all
   become: true
   tasks:
+  - name: Prevent Elasticsearch from being upgraded
+    dpkg_selections:
+      name: elasticsearch
+      selection: hold
+
+  - name: Prevent Kibana from being upgraded
+    dpkg_selections:
+      name: kibana
+      selection: hold
+
+- hosts: all
+  become: true
+  tasks:
   - name: Update all packages to their latest version
     apt:
       autoclean: yes
@@ -23,4 +36,5 @@
       msg: Rebooting to complete system upgrade
       reboot_timeout: 120
     when: reboot_required.stat.exists
+
 
